@@ -253,6 +253,11 @@ public class calculator implements ActionListener {
 			return currentChar + " " + nextChar + addOneSpaceNoMinusAtTheStart(str.substring(2));
 		}
 
+		///////
+		if (Character.isDigit(currentChar) && nextChar == '(') {
+			return currentChar + " * " + nextChar + " " + addOneSpaceNoMinusAtTheStart(str.substring(2));
+		}
+
 		// if one is an operator and the other is an operand
 		if ((Character.isDigit(currentChar) && !Character.isDigit(nextChar))
 				|| (!Character.isDigit(currentChar) && Character.isDigit(nextChar))) {
