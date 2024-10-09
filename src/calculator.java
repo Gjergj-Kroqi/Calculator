@@ -27,7 +27,7 @@ public class calculator implements ActionListener {
 		frame.setSize(420, 550);
 		frame.setLayout(null);
 		frame.setResizable(false);
-
+ 
 		textField = new JTextField();
 		textField.setBounds(50, 25, 300, 50);
 		textField.setFont(myFont);
@@ -231,7 +231,7 @@ public class calculator implements ActionListener {
 
 	private static String addOneSpaceNoMinusAtTheStart(String str) {
 
-		if (str == null) {
+		if (str == null || str == "") {
 			return "";
 		}
 		if (str.length() == 1) {
@@ -241,7 +241,6 @@ public class calculator implements ActionListener {
 		char currentChar = str.charAt(0);
 		char nextChar = str.charAt(1);
 
-		// if both are operators, handles decimals too
 		if ((Character.isDigit(currentChar) && Character.isDigit(nextChar))
 				|| ((Character.isDigit(currentChar) && nextChar == '.')
 						|| (currentChar == '.' && Character.isDigit(nextChar)))) { // if both are operands
@@ -255,6 +254,15 @@ public class calculator implements ActionListener {
 
 		///////
 		if (Character.isDigit(currentChar) && nextChar == '(') {
+
+			try {
+				if (str.charAt(2) == '-') {
+					return currentChar + " " + nextChar + " " + addOneSpaceNoMinusAtTheStart(str.substring(2));
+				}
+			} catch (Exception e) {
+
+			}
+
 			return currentChar + " * " + nextChar + " " + addOneSpaceNoMinusAtTheStart(str.substring(2));
 		}
 
@@ -266,6 +274,7 @@ public class calculator implements ActionListener {
 		// if one is an operator and the other is an operand
 		if ((Character.isDigit(currentChar) && !Character.isDigit(nextChar))
 				|| (!Character.isDigit(currentChar) && Character.isDigit(nextChar))) {
+
 			return currentChar + " " + addOneSpaceNoMinusAtTheStart(str.substring(1));
 		}
 
