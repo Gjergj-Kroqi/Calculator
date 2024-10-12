@@ -27,7 +27,7 @@ public class calculator implements ActionListener {
 		frame.setSize(420, 550);
 		frame.setLayout(null);
 		frame.setResizable(false);
- 
+
 		textField = new JTextField();
 		textField.setBounds(50, 25, 300, 50);
 		textField.setFont(myFont);
@@ -173,7 +173,13 @@ public class calculator implements ActionListener {
 				}
 
 			} catch (Exception ex) {
-				textField.setText("Error");
+
+				if (textField.getText().isEmpty()) {
+
+				} else {
+
+					textField.setText("Error");
+				}
 			}
 		}
 
@@ -191,25 +197,10 @@ public class calculator implements ActionListener {
 	}
 
 	public static String fixExpression(String expression) {
-		expression = removeSpaces(expression);
+		expression = expression.replaceAll("\\s", ""); // Remove spaces
 		expression = addOneSpace(expression);
 
 		return expression;
-
-	}
-
-	private static String removeSpaces(String str) {
-
-		if (str == null || str == "") {
-			return "";
-		}
-
-		if (str.charAt(0) == ' ') {
-			return removeSpaces(str.substring(1));
-		} else {
-
-			return str.substring(0, 1) + removeSpaces(str.substring(1));
-		}
 
 	}
 
@@ -226,6 +217,11 @@ public class calculator implements ActionListener {
 	}
 
 	private static String addOneSpaceMinusAtTheStart(String str) {
+
+		if (str == null || str.isEmpty()) {
+			return "";
+		}
+
 		return str.charAt(0) + addOneSpaceNoMinusAtTheStart(str.substring(1));
 	}
 
